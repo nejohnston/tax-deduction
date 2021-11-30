@@ -2,6 +2,7 @@
 Nicholas Johnston
 A01242666
 """
+import sys
 import time
 import pandas as pd
 from selenium import webdriver
@@ -103,8 +104,18 @@ def process_website(employees):
     Instantiates
     :param employees: list of employee objects
     """
+    driver = None
     # Instantiate driver
-    driver = webdriver.Firefox()
+    # TODO: add your path where chromedriver resides
+    # ex: /Users/user/Downloads/chromedriver
+    try:
+        chrome_driver = ""
+        if chrome_driver == "":
+            raise ValueError
+        driver = webdriver.Chrome(executable_path=chrome_driver)
+    except ValueError:
+        print("Must enter path of ChromeDriver: Line 111")
+        exit()
     # Get website
     driver.get(
         "https://www.canada.ca/en/revenue-agency/services/e-services/e-services-businesses/payroll-deductions-online"
@@ -175,7 +186,7 @@ def process_website(employees):
 
 
 def main():
-    employee_processor = EmployeeProcessor('payroll_list.xlsx')
+    employee_processor = EmployeeProcessor(sys.argv[2])
     employee_list = employee_processor.create_employee_list()
     process_website(employee_list)
 
