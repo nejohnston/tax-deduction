@@ -105,20 +105,21 @@ def process_website(employees):
     :param employees: list of employee objects
     """
     chrome_options = webdriver.ChromeOptions()
-    # TODO: add path for where downloads should go
-    prefs = {"download.default_directory": "/Users/enjay/Downloads"}
+    # TODO: add path for where downloads should go in prefs  - Line 110
+    # ex: /Users/user/Downloads
+    prefs = {"download.default_directory": ""}
     chrome_options.add_experimental_option("prefs", prefs)
     driver = None
     # Instantiate driver
     # TODO: add your path where chromedriver resides
     # ex: /Users/user/Downloads/chromedriver
     try:
-        chrome_driver = "/Users/enjay/Downloads/chromedriver2"
+        chrome_driver = ""
         if chrome_driver == "":
             raise ValueError
         driver = webdriver.Chrome(executable_path=chrome_driver, chrome_options=chrome_options)
     except ValueError:
-        print("Must enter path of ChromeDriver: Line 111")
+        print("Must enter path of ChromeDriver: Line 117")
         exit()
     # Get website
     driver.get(
